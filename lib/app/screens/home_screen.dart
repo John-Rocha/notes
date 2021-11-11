@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:notes/app/database/database_provider.dart';
+import 'package:notes/app/model/note_model.dart';
+import 'package:intl/intl.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -41,13 +43,25 @@ class _HomeScreenState extends State<HomeScreen> {
                       itemBuilder: (context, index) {
                         String title = noteData.data[index]['title'];
                         String body = noteData.data[index]['body'];
-                        String creationDate =
-                            noteData.data[index]['creationDate'];
-                        String id = noteData.data[index]['id'];
+                        var creationDate = noteData.data[index]['creationDate'];
+                        var id = noteData.data[index]['id'];
+
                         return Card(
                           child: ListTile(
                             title: Text(title),
                             subtitle: Text(body),
+                            onTap: () {
+                              Navigator.pushNamed(
+                                context,
+                                '/showNotes',
+                                arguments: NoteModel(
+                                  title: title,
+                                  body: body,
+                                  creationDate: creationDate,
+                                  id: id,
+                                ),
+                              );
+                            },
                           ),
                         );
                       },
@@ -62,6 +76,12 @@ class _HomeScreenState extends State<HomeScreen> {
             default:
           }
           return Container();
+        },
+      ),
+      floatingActionButton: FloatingActionButton(
+        child: const Icon(Icons.note),
+        onPressed: () {
+          Navigator.pushNamed(context, '/addNote');
         },
       ),
     );

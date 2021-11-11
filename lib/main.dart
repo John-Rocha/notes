@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:notes/app/screens/add_note.dart';
+import 'package:notes/app/screens/display_note.dart';
 import 'package:notes/app/screens/home_screen.dart';
 
 void main() {
@@ -15,6 +17,8 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
         '/': (context) => const HomeScreen(),
+        '/addNote': (context) => const AddNote(),
+        '/showNotes': (context) => const DisplayNote(),
       },
     );
   }
